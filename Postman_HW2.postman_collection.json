@@ -245,6 +245,134 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "4 object_info_4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 3. Спарсить response body в json.",
+							"var resp_data = pm.response.json();",
+							"console.log(\"Response body: \", resp_data);",
+							"",
+							"// 4. Спарсить request.",
+							"var req_data = pm.request.url.query.toObject();",
+							"console.log(\"Request body: \", req_data);",
+							"",
+							"// 5. Проверить, что name в ответе равно name s request (name забрать из request.)",
+							"pm.test(\"Check name\", function () {",
+							"    pm.expect(resp_data.name).to.eql(req_data.name);",
+							"})",
+							"",
+							"// 6. Проверить, что age в ответе равно age из request (age забрать из request.)",
+							"pm.test(\"Check name\", function () {",
+							"    pm.expect(resp_data.age).to.eql(Number(req_data.age));",
+							"})",
+							"",
+							"// 7. Вывести в консоль параметр salary из request.",
+							"console.log(req_data.salary, typeof req_data.salary);",
+							"",
+							"// 8. Вывести в консоль параметр salary из response.",
+							"console.log(\"Response salary: \", resp_data.salary, typeof resp_data.salary);",
+							"",
+							"// 9. Вывести в консоль 0-й элемент параметра salary из response.",
+							"console.log(\"Response salary[0] = \",resp_data.salary[0], typeof resp_data.salary[0]);",
+							"",
+							"// 10. Вывести в консоль 1-й элемент параметра salary параметр salary из response.",
+							"console.log(\"Response salary[1] = \",resp_data.salary[1], typeof resp_data.salary[1]);",
+							"",
+							"// 11. Вывести в консоль 2-й элемент параметра salary параметр salary из response.",
+							"console.log(\"Response salary[2] = \",resp_data.salary[2], typeof resp_data.salary[2]);",
+							"",
+							"// 12. Проверить, что 0-й элемент параметра salary равен salary из request (salary забрать из request.)",
+							"pm.test(\"Check Request salary == Response salary [0]\", function(){",
+							"    pm.expect(resp_data.salary[0]).to.eql(parseInt(req_data.salary))",
+							"})",
+							"",
+							"//13. Проверить, что 1-й элемент параметра salary равен salary*2 из request (salary забрать из request.)",
+							"pm.test(\"Check Response salary [1] == Request salary *2\", function(){",
+							"    pm.expect(Number(resp_data.salary[1])).to.eql(parseInt(req_data.salary ) * 2)",
+							"})",
+							"",
+							"//14. Проверить, что 2-й элемент параметра salary равен salary*3 из request (salary забрать из request.)",
+							"pm.test(\"Check Response salary [2] == Request salary *3\", function(){",
+							"    pm.expect(Number(resp_data.salary[2])).to.eql(parseInt(req_data.salary ) * 3)",
+							"})",
+							"",
+							"// 15. Создать в окружении переменную name",
+							"//16. Создать в окружении переменную age",
+							"//17. Создать в окружении переменную salary",
+							"",
+							"// 1) Создать окружение Env_Postman_HW2",
+							"// 2) Перейти в запрос ",
+							"// 3) Выбрать окружение (справа вверху)",
+							"// 4) Саздать переменную там, либо через set со значением",
+							"",
+							"// 18. Передать в окружение переменную name",
+							"pm.environment.set(\"name\",\"Maria\");",
+							"",
+							"// 19. Передать в окружение переменную age",
+							"pm.environment.set(\"age\",30);",
+							"",
+							"// 20. Передать в окружение переменную salary",
+							"pm.environment.set(\"salary\",1000);",
+							"",
+							"// 21. Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.",
+							"console.log(\"Колличество эл-ов: \", resp_data.salary.length);",
+							"// Вариант 1",
+							"for (var i=0; i<resp_data.salary.length; i++){",
+							"    console.log(\"Salary[\", i, \"] = \",resp_data.salary[i]);",
+							"}",
+							"",
+							"// Вариант 2",
+							"var all_salary = \"\";",
+							"for (var i=0; i<resp_data.salary.length; i++){",
+							"     all_salary += \"Salary[\" + i + \"] = \" + resp_data.salary[i] + \";  \"; ",
+							"}",
+							"console.log(all_salary);",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://162.55.220.72:5005/object_info_4?name=Maria&age=30&salary=1000",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Maria"
+						},
+						{
+							"key": "age",
+							"value": "30"
+						},
+						{
+							"key": "salary",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
