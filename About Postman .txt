@@ -1,0 +1,61 @@
+﻿About Postman 
+
+// Спарсить response body в json.
+var resp_data = pm.response.json();
+
+
+
+
+// Спарсить request. (url)
+var req_data = pm.request.url.query.toObject();
+
+
+// Спарсить request. (Body form-data)
+var req_data = request.data;
+
+
+// Спарсить (Request body row - json)
+var req_data = JSON.parse(pm.request.body.raw);
+
+
+
+
+//  Передать в окружение переменную name
+pm.environment.set("name","Maria");
+или
+Environments
+Salary = 1000
+
+
+
+
+var int_req_salary = parseInt(req_data.salary); // приведение строки в число 
+
+
+// Проверить, что у параметра dog есть параметры name.
+// вариант 1
+pm.test("9 Check having dog param. name ", function(){
+pm.expect(resp_data.family.pets.dog).have.property("name");
+})
+
+
+//вариант 2
+pm.test("9 Check having dog name - вариант 1", function(){
+if (resp_data.family.pets["dog"].name != null){
+var code = "pass";}
+pm.expect(code).to.eql("pass");
+})
+
+
+
+
+//Длина массива
+resp_data.salary.length
+
+
+//  Проверка структуры json в ответе.
+var schema = {};
+var resp_data = pm.response.json();
+pm.test('Schema is valid', function () {
+pm.expect (tv4.validate(resp_data, schema)).to.be.true;
+});
